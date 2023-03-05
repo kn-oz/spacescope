@@ -7,6 +7,7 @@ import { createPortal } from "react-dom";
 import Overlay from "../Overlay/Overlay";
 import Spotlight from "../Spotlight/Spotlight";
 
+
 interface Props {
   apodData: ApodData;
 }
@@ -41,7 +42,7 @@ export default function Card(props: Props): JSX.Element {
     thumbnail_url,
   } = apodData;
 
-  const [viewMedia, setViewMedia] = useState(false);
+  const [viewInSpotlight, setViewInSpotLight] = useState(false);
 
   return (
     <motion.div
@@ -54,11 +55,9 @@ export default function Card(props: Props): JSX.Element {
       }}
       className="bg-primary text-black m-2 p-4 h-full w-full rounded-2xl"
     >
-      <motion.div
-        variants={item}
-        className="media-wrapper mb-2"
-        onClick={() => setViewMedia(true)}
-      >
+      <motion.div variants={item} className="media-wrapper mb-2" onClick={() => {
+        console.log("clicked")
+        setViewInSpotLight(true)}}>
         <MediaPreview
           url={url}
           title={title}
@@ -70,16 +69,16 @@ export default function Card(props: Props): JSX.Element {
         <p className="title prose">{title}</p>
         <p className="date shrink-0">{date}</p>
       </div>
-      {viewMedia &&
-        createPortal(
-          <AnimatePresence>
-            <Overlay onClose={() => setViewMedia(false)} key={date}>
-              {" "}
-              <Spotlight apodData={apodData} />
-            </Overlay>
-          </AnimatePresence>,
-          document.body
-        )}
+      {viewInSpotlight &&
+          createPortal(
+            <AnimatePresence>
+              <Overlay onClose={() => setViewInSpotLight(false)} key={date}>
+                {" "}
+                <Spotlight apodData={apodData} />
+              </Overlay>
+            </AnimatePresence>,
+            document.body
+          )}
     </motion.div>
   );
 }

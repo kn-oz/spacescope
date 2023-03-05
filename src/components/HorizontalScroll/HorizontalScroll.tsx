@@ -25,7 +25,7 @@ export default function HorizontalScroll(props: Props) {
       <motion.div drag="x" dragConstraints={{right: 0, left: -width}} className="inner-carousel flex">
         {sortedApodList?.map((apodData) => {
           return (
-            <motion.div key={apodData.title + apodData.date} className="carousel-item p-4 min-h-[16rem] min-w-[24rem] pointer-events-none">
+            <motion.div key={apodData.title + apodData.date} className="carousel-item p-4 min-h-[16rem] min-w-[24rem]">
               <Card  apodData={apodData} />
             </motion.div>
           );
